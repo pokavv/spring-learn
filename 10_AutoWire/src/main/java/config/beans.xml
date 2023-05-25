@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire='byName'> <!-- 설정이 안된 bean은 default로 autowire -->
+
+	<bean id='obj1' class='beans.testBean'>
+		<property name='data1' ref='data_bean'></property>
+		<property name='data2' ref='data_bean'></property>
+	</bean>
+	
+	<bean id='data_bean' class='beans.dataBean' scope='prototype'/>
+	
+	<!-- AutoWire: byName -->
+	<bean id='obj2' class='beans.testBean' autowire="byName"/>
+	
+	<bean id='data1' class='beans.dataBean'/>
+	<bean id='data2' class='beans.dataBean'/>
+	
+	<!-- AutoWire: byType -->
+	<bean id='obj3' class='beans.testBean2' autowire='byType'/>
+	
+	<bean id='data_bean2' class='beans.dataBean2'/>
+	
+	<!-- AutoWire: Constructor -->
+	<bean id='obj4' class='beans.testBean3'>
+		<constructor-arg ref='data_bean2' index='0'/>
+		<constructor-arg ref='data_bean2' index='1'/>
+	</bean>
+	
+	<bean id='obj5' class='beans.testBean3' autowire='constructor'/>
+	
+	<bean id='obj6' class='beans.testBean3'>
+		<constructor-arg value='100' index='0' type='int'/>
+		<constructor-arg value='문자열' index='1' />
+		<constructor-arg ref='data_bean2' index='2' />
+		<constructor-arg ref='data_bean2' index='3' />
+	</bean>
+	
+	<bean id='obj7' class='beans.testBean3' autowire="constructor">
+		<constructor-arg value='200' index='0' type='int'/>
+		<constructor-arg value='안녕하세요' index='1'/>
+	</bean>
+	
+	<!-- default-autowire -->
+	<bean id='obj8' class='beans.testBean'/>
+	
+	<!-- default-autowire를 받고싶지 않거나 autowire를 사용하지 않을때 -->
+	<bean id='obj9' class='beans.testBean' autowire="no"/>
+</beans>
