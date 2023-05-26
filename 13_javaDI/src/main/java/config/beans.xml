@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 생성자에서 주입할땐 constructor-arg, set메소드에서 주입할땐 property -->					
+	<bean id='xml1' class='beans.testBean1' lazy-init='true'>
+		<constructor-arg value='100' type='int' index='0'/>
+		<constructor-arg value='문자열' index='1'/>
+		<constructor-arg ref='data_bean1' index='2'/>
+	</bean>
+	
+	<bean id='xml2' class='beans.testBean1' lazy-init='true'>
+		<property name="data1" value='300'/>
+		<property name="data2" value='Hello World'/>
+		<property name="data3" ref='data_bean1'/>
+	</bean>
+	
+	<bean id='data_bean1' class='beans.dataBean1'/>
+	
+	<bean id='data1' class='beans.dataBean2'/>
+	<bean id='data2' class='beans.dataBean2'/>
+	
+	<bean id='xml3' class='beans.testBean2' lazy-init='true' autowire="byName"/>
+	
+	<bean class='beans.dataBean3'/>
+	
+	<bean id='xml4' class='beans.testBean3' autowire="byType"/>
+</beans>
